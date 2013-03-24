@@ -17,7 +17,7 @@ import javax.persistence.Query;
 public class DAO<T, ID extends Serializable> {
 
     private final Class<T> classe;
-    private Conexao conexao;
+    private Conexao conexao = new Conexao();
 
     public DAO(Class<T> classe) {
         this.classe = classe;
