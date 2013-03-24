@@ -10,9 +10,9 @@
         <channel ref="my-amf"/>
     </default-channels>
     
-    <destination id="ContatoService">
+    <destination id="UsuarioService">
     	<properties>
-    		<source>br.com.silos.flexDuck.services.ContatoService</source>
+    		<source>br.com.wt.services.UsuarioService</source>
     	</properties>
     </destination>
 
