@@ -1,8 +1,8 @@
 package br.com.wt.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -73,7 +73,7 @@ public class Atividade implements Serializable {
     private Date dataHoraEncerramento;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividadeId")
-    private Collection<Tempo> tempoCollection;
+    private List<Tempo> tempoList;
 
     public Atividade() {
     }
@@ -130,12 +130,12 @@ public class Atividade implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Tempo> getTempoCollection() {
-        return tempoCollection;
+    public List<Tempo> getTempoList() {
+        return tempoList;
     }
 
-    public void setTempoCollection(Collection<Tempo> tempoCollection) {
-        this.tempoCollection = tempoCollection;
+    public void setTempoList(List<Tempo> tempoList) {
+        this.tempoList = tempoList;
     }
 
     @Override
