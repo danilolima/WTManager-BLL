@@ -1,5 +1,6 @@
 package br.com.wt.conexao.dao;
 
+import br.com.wt.entities.Tempo;
 import br.com.wt.entities.Usuario;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,5 +26,21 @@ public class UsuarioDAO {
             return null;
         }
         return usuario;
+    }
+    
+    public Usuario buscaPorId(Integer id){
+        Usuario usuario = dao.buscaPorId(Usuario.class, id);
+        
+        if(usuario == null){
+            return null;
+        }
+        return usuario;
+    }
+    
+    public Boolean atualiza(Usuario t){
+        if(dao.persiste(t, "atualizar") != null){
+            return true;
+        }
+        return false;
     }
 }
