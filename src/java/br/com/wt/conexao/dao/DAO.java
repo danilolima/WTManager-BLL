@@ -23,12 +23,15 @@ public class DAO<T, ID extends Serializable> {
         this.classe = classe;
     }
 
-    public T persiste(T t){
+    public T persiste(T t, String tipo){
         EntityManager entityManager = conexao.getEntityManager();
         try {
             entityManager.getTransaction().begin();
-            //entityManager.persist(t);
-            entityManager.merge(t);
+            if("salvar".equals(tipo)){
+                entityManager.persist(t);
+            }else if("atualizar".equals(tipo)){
+                entityManager.merge(t);
+            }
             entityManager.getTransaction().commit();
             return t;
         } catch (Exception e) {
