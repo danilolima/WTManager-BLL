@@ -15,18 +15,22 @@ public class UsuarioDAO {
         dao = new DAO<Usuario, Integer>(Usuario.class);
     }
     
-    public Boolean adiciona(Usuario t){
-        if(dao.save(t) != null){
+    public Boolean adiciona(Usuario usuario){
+        if(dao.save(usuario) != null){
             return true;
         }
         return false;
     }
     
-    public Boolean atualiza(Usuario t){
-        if(dao.update(t) != null){
+    public Boolean atualiza(Usuario usuario){
+        if(dao.update(usuario) != null){
             return true;
         }
         return false;
+    }
+    
+    public Boolean apaga(Usuario usuario){
+        return dao.delete(usuario);
     }
     
     public Usuario buscaPorChave(String chave){
