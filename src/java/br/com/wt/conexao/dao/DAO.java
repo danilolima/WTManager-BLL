@@ -2,6 +2,7 @@ package br.com.wt.conexao.dao;
 
 import br.com.wt.conexao.Conexao;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -69,6 +70,11 @@ public class DAO<T, ID extends Serializable> {
             entityManager.close();
         }
         return true;
+    }
+    
+     public List<T> listByNamedQuery(String namedQuery){
+        EntityManager entityManager = conexao.getEntityManager();
+        return (List<T>) entityManager.createNamedQuery(namedQuery, classe);
     }
     
     public T findById(ID id){
