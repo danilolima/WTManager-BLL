@@ -16,5 +16,11 @@
     		<source>br.com.wt.services.UsuarioService</source>
     	</properties>
     </destination>
+    
+    <destination id="AdministradorService">
+    	<properties>
+    		<source>br.com.wt.services.AdministradorService</source>
+    	</properties>
+    </destination>
 
 </service>
