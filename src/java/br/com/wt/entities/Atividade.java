@@ -11,7 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -28,15 +29,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Danilo
  */
 @Entity
-@Table(name = "atividade")
+@Table(name = "Atividade")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Atividade.findAll", query = "SELECT a FROM Atividade a"),
     @NamedQuery(name = "Atividade.findById", query = "SELECT a FROM Atividade a WHERE a.id = :id"),
     @NamedQuery(name = "Atividade.findByNome", query = "SELECT a FROM Atividade a WHERE a.nome = :nome"),
     @NamedQuery(name = "Atividade.findByDescricao", query = "SELECT a FROM Atividade a WHERE a.descricao = :descricao"),
-    @NamedQuery(name = "Atividade.findByDataHoraCriacao", query = "SELECT a FROM Atividade a WHERE a.dataHoraCriacao = :dataHoraCriacao"),
-    @NamedQuery(name = "Atividade.findByDataHoraEncerramento", query = "SELECT a FROM Atividade a WHERE a.dataHoraEncerramento = :dataHoraEncerramento")})
+    @NamedQuery(name = "Atividade.findByDataHoraEncerramento", query = "SELECT a FROM Atividade a WHERE a.dataHoraEncerramento = :dataHoraEncerramento"),
+    @NamedQuery(name = "Atividade.findByDataHoraCriacao", query = "SELECT a FROM Atividade a WHERE a.dataHoraCriacao = :dataHoraCriacao")})
 public class Atividade implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -45,10 +46,6 @@ public class Atividade implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Usuario usuarioId;
     
     @Basic(optional = false)
     @NotNull
@@ -60,17 +57,21 @@ public class Atividade implements Serializable {
     @Column(name = "descricao")
     private String descricao;
     
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "data_hora_criacao")
-    @Temporal(TemporalType.TIME)
-    private Date dataHoraCriacao;
-    
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "data_hora_encerramento")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraEncerramento;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "data_hora_criacao")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHoraCriacao;
+    
+    @JoinTable(name = "AtividadeUsuario", joinColumns = {
+        @JoinColumn(name = "atividade_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "usuario_id", referencedColumnName = "id")})
+    @ManyToMany
+    private List<Usuario> usuarioList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "atividadeId")
     private List<Tempo> tempoList;
@@ -82,11 +83,10 @@ public class Atividade implements Serializable {
         this.id = id;
     }
 
-    public Atividade(Integer id, String nome, Date dataHoraCriacao, Date dataHoraEncerramento) {
+    public Atividade(Integer id, String nome, Date dataHoraCriacao) {
         this.id = id;
         this.nome = nome;
         this.dataHoraCriacao = dataHoraCriacao;
-        this.dataHoraEncerramento = dataHoraEncerramento;
     }
 
     public Integer getId() {
@@ -113,6 +113,14 @@ public class Atividade implements Serializable {
         this.descricao = descricao;
     }
 
+    public Date getDataHoraEncerramento() {
+        return dataHoraEncerramento;
+    }
+
+    public void setDataHoraEncerramento(Date dataHoraEncerramento) {
+        this.dataHoraEncerramento = dataHoraEncerramento;
+    }
+
     public Date getDataHoraCriacao() {
         return dataHoraCriacao;
     }
@@ -121,12 +129,13 @@ public class Atividade implements Serializable {
         this.dataHoraCriacao = dataHoraCriacao;
     }
 
-    public Date getDataHoraEncerramento() {
-        return dataHoraEncerramento;
+    @XmlTransient
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
     }
 
-    public void setDataHoraEncerramento(Date dataHoraEncerramento) {
-        this.dataHoraEncerramento = dataHoraEncerramento;
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     @XmlTransient
@@ -161,14 +170,6 @@ public class Atividade implements Serializable {
     @Override
     public String toString() {
         return "br.com.wt.entities.Atividade[ id=" + id + " ]";
-    }
-
-    public Usuario getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Usuario usuarioId) {
-        this.usuarioId = usuarioId;
     }
 
 }
