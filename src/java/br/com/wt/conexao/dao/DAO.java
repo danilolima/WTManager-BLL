@@ -74,7 +74,8 @@ public class DAO<T, ID extends Serializable> {
     
      public List<T> listByNamedQuery(String namedQuery){
         EntityManager entityManager = conexao.getEntityManager();
-        return (List<T>) entityManager.createNamedQuery(namedQuery, classe);
+        Query query = entityManager.createNamedQuery(namedQuery, classe);
+        return (List<T>) query.getResultList();
     }
     
     public T findById(ID id){
