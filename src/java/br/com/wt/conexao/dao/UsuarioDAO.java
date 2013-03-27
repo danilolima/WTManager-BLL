@@ -1,6 +1,5 @@
 package br.com.wt.conexao.dao;
 
-import br.com.wt.entities.Tempo;
 import br.com.wt.entities.Usuario;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +19,7 @@ public class UsuarioDAO {
         Map<String, Object> parametros = new HashMap<String, Object>();
         parametros.put("chave", chave);
         
-        Usuario usuario = (Usuario) dao.buscaPorNamedQuery("Usuario.findByChave", parametros);
+        Usuario usuario = (Usuario) dao.findByNamedQuery("Usuario.findByChave", parametros);
         
         if(usuario == null){
             return null;
@@ -29,7 +28,7 @@ public class UsuarioDAO {
     }
     
     public Usuario buscaPorId(Integer id){
-        Usuario usuario = dao.buscaPorId(Usuario.class, id);
+        Usuario usuario = dao.findById(id);
         
         if(usuario == null){
             return null;
@@ -38,7 +37,7 @@ public class UsuarioDAO {
     }
     
     public Boolean atualiza(Usuario t){
-        if(dao.persiste(t, "atualizar") != null){
+        if(dao.update(t) != null){
             return true;
         }
         return false;

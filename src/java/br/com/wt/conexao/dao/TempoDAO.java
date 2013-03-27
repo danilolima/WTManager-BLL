@@ -13,15 +13,15 @@ public class TempoDAO {
         dao = new DAO<Tempo, Integer>(Tempo.class);
     }
     
-    public Boolean atualiza(Tempo t){
-        if(dao.persiste(t, "atualizar") != null){
+    public Boolean adiciona(Tempo t){
+        if(dao.save(t) != null){
             return true;
         }
         return false;
     }
     
     public Tempo buscaPorId(Integer id){
-        Tempo atividade = dao.buscaPorId(Tempo.class, id);
+        Tempo atividade = dao.findById(id);
         
         if(atividade == null){
             return null;

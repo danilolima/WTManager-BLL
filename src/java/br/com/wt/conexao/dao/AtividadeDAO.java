@@ -14,14 +14,14 @@ public class AtividadeDAO {
     }
     
     public Boolean atualiza(Atividade t){
-        if(dao.persiste(t, "atualizar") != null){
+        if(dao.update(t) != null){
             return true;
         }
         return false;
     }
     
     public Atividade buscaPorId(Integer id){
-        Atividade atividade = dao.buscaPorId(Atividade.class, id);
+        Atividade atividade = dao.findById(id);
         
         if(atividade == null){
             return null;
