@@ -13,6 +13,13 @@ public class AtividadeDAO {
         dao = new DAO<Atividade, Integer>(Atividade.class);
     }
     
+    public Boolean adiciona(Atividade t){
+        if(dao.save(t) != null){
+            return true;
+        }
+        return false;
+    }
+    
     public Boolean atualiza(Atividade t){
         if(dao.update(t) != null){
             return true;

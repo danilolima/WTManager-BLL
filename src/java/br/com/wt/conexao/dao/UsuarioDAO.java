@@ -15,6 +15,20 @@ public class UsuarioDAO {
         dao = new DAO<Usuario, Integer>(Usuario.class);
     }
     
+    public Boolean adiciona(Usuario t){
+        if(dao.save(t) != null){
+            return true;
+        }
+        return false;
+    }
+    
+    public Boolean atualiza(Usuario t){
+        if(dao.update(t) != null){
+            return true;
+        }
+        return false;
+    }
+    
     public Usuario buscaPorChave(String chave){
         Map<String, Object> parametros = new HashMap<String, Object>();
         parametros.put("chave", chave);
@@ -34,12 +48,5 @@ public class UsuarioDAO {
             return null;
         }
         return usuario;
-    }
-    
-    public Boolean atualiza(Usuario t){
-        if(dao.update(t) != null){
-            return true;
-        }
-        return false;
     }
 }
