@@ -31,13 +31,12 @@ public class UsuarioService {
         if(tempo != null){
             tempo.setId(null);
             try{
-                this.tempoDAO.atualiza(tempo);
-                return true;
+                this.tempoDAO.adiciona(tempo);
             }catch (Exception e){
                 Logger.getLogger(UsuarioService.class.getName()).log(Level.SEVERE, null, e);
                 return false;
             }
         }
-        return false;
+        return true;
     }
 }
