@@ -2,6 +2,7 @@ package br.com.wt.conexao.dao;
 
 import br.com.wt.entities.Usuario;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,16 +34,8 @@ public class UsuarioDAO {
         return dao.delete(usuario);
     }
     
-    public Usuario buscaPorChave(String chave){
-        Map<String, Object> parametros = new HashMap<String, Object>();
-        parametros.put("chave", chave);
-        
-        Usuario usuario = (Usuario) dao.findByNamedQuery("Usuario.findByChave", parametros);
-        
-        if(usuario == null){
-            return null;
-        }
-        return usuario;
+    public List<Usuario> lista(){
+        return dao.listByNamedQuery("Usuario.findAll");
     }
     
     public Usuario buscaPorId(Integer id){
@@ -53,4 +46,16 @@ public class UsuarioDAO {
         }
         return usuario;
     }
+    
+    public Usuario buscaPorChave(String chave){
+        Map<String, Object> parametros = new HashMap<String, Object>();
+        parametros.put("chave", chave);
+        
+        Usuario usuario = (Usuario) dao.findByNamedQuery("Usuario.findByChave", parametros);
+        
+        if(usuario == null){
+            return null;
+        }
+        return usuario;
+    }    
 }

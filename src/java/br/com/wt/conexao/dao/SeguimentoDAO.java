@@ -1,6 +1,7 @@
 package br.com.wt.conexao.dao;
 
 import br.com.wt.entities.Seguimento;
+import java.util.List;
 
 /**
  *
@@ -13,17 +14,25 @@ public class SeguimentoDAO {
         dao = new DAO<Seguimento, Integer>(Seguimento.class);
     }
     
-    public Boolean adiciona(Seguimento t){
-        if(dao.save(t) != null){
+    public Boolean adiciona(Seguimento seguimento){
+        if(dao.save(seguimento) != null){
             return true;
         }
         return false;
     }
     
-    public Boolean atualiza(Seguimento t){
-        if(dao.update(t) != null){
+    public Boolean atualiza(Seguimento seguimento){
+        if(dao.update(seguimento) != null){
             return true;
         }
         return false;
+    }
+    
+    public Boolean apaga(Seguimento seguimento){
+        return dao.delete(seguimento);
+    }
+    
+    public List<Seguimento> lista(){
+        return dao.listByNamedQuery("Seguimento.findAll");
     }
 }

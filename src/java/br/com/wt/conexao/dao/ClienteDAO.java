@@ -1,6 +1,7 @@
 package br.com.wt.conexao.dao;
 
 import br.com.wt.entities.Cliente;
+import java.util.List;
 
 /**
  *
@@ -25,5 +26,13 @@ public class ClienteDAO {
             return true;
         }
         return false;
+    }
+    
+    public Boolean apaga(Cliente cliente){
+        return dao.delete(cliente);
+    }
+    
+    public List<Cliente> lista(){
+        return dao.listByNamedQuery("Cliente.findAll");
     }
 }
