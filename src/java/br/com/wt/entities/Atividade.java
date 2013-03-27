@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Danilo
  */
 @Entity
-@Table(name = "Atividade")
+@Table(name = "atividade")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Atividade.findAll", query = "SELECT a FROM Atividade a"),
@@ -67,7 +67,7 @@ public class Atividade implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataHoraCriacao;
     
-    @JoinTable(name = "AtividadeUsuario", joinColumns = {
+    @JoinTable(name = "atividade_usuario", joinColumns = {
         @JoinColumn(name = "atividade_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "usuario_id", referencedColumnName = "id")})
     @ManyToMany
